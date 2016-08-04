@@ -1,0 +1,38 @@
+<html>                                                                                       
+<title>All Test Cases</title>                                                                
+<body>                                                                                       
+<table>                                                                                  
+<tr>
+<td>Versions:</td>
+{% for version in test_case.versions.all %}
+<td>{{ version.number }} - {{ version.name }} </td>
+{% endfor %}
+</tr>
+<tr>
+	<td>Priority:</td>
+	<td>{{ test_case.priority }}</td>
+</tr>
+<tr>
+	<td>Name: </td>
+	<td>{{ test_case.name }}</td>
+</tr>
+<tr>
+	<td>Prerequisites:</td>
+	<td>{{ test_case.prerequisites }}</td>
+</tr>
+<tr>
+	<td>Persona</td>
+	<td>{{ test_case.persona }}</td>
+</tr>
+<tr>
+	<td>Procedure:</td>
+	<td>{{ test_case.procedure }}</td>
+</tr>
+<tr>
+	<td>Author:</td>
+	<td>{{ test_case.author.username }}</td>
+</tr>
+</table>
+<a href="{% url 'update_test_case' test_case.id %}">Edit</a>
+</body>                                                                                      
+</html>

@@ -1,0 +1,17 @@
+<html>
+<title> All Versions</title>
+<body>
+	<table>
+	{% for version in all_versions %}
+	<tr>
+	<td>{{ version.number }}</td>
+	<td>{{ version.name}}</td>
+	<td><a href="{% url 'update_version' version.id %}">Edit</a>
+	<td><a href="{% url 'delete_version' version.id %}" onclick="return confirm('Do you wish to delete?');return false;">Delete</a>
+	<td><a href="{% url 'show_all_test_cases' version.id %}">Show Test Cases</a>
+	</tr>
+	{% endfor %}
+	</table>
+	<a href="{% url 'new_version' %}">Create new version</a>
+</body>
+</html>
