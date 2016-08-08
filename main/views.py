@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from main.models import Version,TestCase, Persona
-from main.forms import VersionForm, TestCaseForm, PersonaForm
+from main.models import Version,TestCase, Persona, Defect
+from main.forms import VersionForm, TestCaseForm, PersonaForm, DefectForm
 
 # Create your views here.
 def register(request):
@@ -46,10 +46,11 @@ def new_test_case(request):
             test_case = form.save(commit=False)
             test_case.author = request.user
             test_case.save()
+            form.save_m2m()
             return redirect(home)
     else:
         form = TestCaseForm()
-        return render(request, 'main/new_test_case.html', {'form':form})
+    return render(request, 'main/new_test_case.html', {'form':form})
 
 @login_required
 def update_test_case(request, id):
@@ -60,10 +61,11 @@ def update_test_case(request, id):
             test_case = form.save(commit=False)
             test_case.author = request.user
             test_case.save()
+            form.save_m2m()
             return redirect(show_test_cases)
     else:
         form = TestCaseForm(instance = test_case)
-        return render(request, 'main/new_test_case.html', {'test_case':test_case,'form':form})
+    return render(request, 'main/new_test_case.html', {'test_case':test_case,'form':form})
 
 @login_required
 def delete_test_case(request, id):
@@ -89,7 +91,7 @@ def new_version(request):
             return redirect(show_versions)
     else:
         form = VersionForm()
-        return render(request, 'main/new_version.html', {'form':form})
+    return render(request, 'main/new_version.html', {'form':form})
 
 @login_required
 def update_version(request, id):
@@ -101,7 +103,7 @@ def update_version(request, id):
             return redirect(show_versions)
     else:
         form = VersionForm(instance = version)
-        return render(request, 'main/new_version.html', {'version':version,'form':form})
+    return render(request, 'main/new_version.html', {'version':version,'form':form})
 
 @login_required
 def delete_version(request, id):
@@ -127,7 +129,7 @@ def new_persona(request):
             return redirect(home)
     else:
         form = PersonaForm()
-        return render(request, 'main/new_persona.html', {'form':form})
+    return render(request, 'main/new_persona.html', {'form':form})
 
 @login_required
 def update_persona(request, id):
@@ -139,7 +141,7 @@ def update_persona(request, id):
             return redirect(show_personas)
     else:
         form = PersonaForm(instance = persona)
-        return render(request, 'main/new_persona.html', {'persona':persona,'form':form})
+    return render(request, 'main/new_persona.html', {'persona':persona,'form':form})
 
 @login_required
 def delete_persona(request, id):
@@ -147,3 +149,56 @@ def delete_persona(request, id):
     if persona:
         persona.delete()
     return redirect(show_personas)
+
+@login_required
+def show_defects(request, version_id=None):
+    context = dict()
+    if version_id:
+        context['all_defects'] = Defect.objects.filter(versions__id=version_id)
+    else:
+        context['all_defects'] = Defect.objects.all()
+    return render(request, "main/defects.html",
+        context)
+
+@login_required
+def show_defect(request, defect_id):
+    context = dict()
+    context['defect'] = Defect.objects.get(id=defect_id)
+    return render(request, "main/defect_details.html",
+    context)
+
+@login_required
+def new_defect(request):
+    if request.method == 'POST':
+        form = DefectForm(request.POST)
+        if form.is_valid():
+            defect = form.save(commit=False)
+            defect.reporter = request.user
+            defect.save()
+            form.save_m2m()
+            return redirect(home)
+    else:
+        form = DefectForm()
+    return render(request, 'main/new_defect.html', {'form':form})
+
+@login_required
+def update_defect(request, id):
+    defect = get_object_or_404(Defect, pk=id)
+    if request.method == 'POST':
+        form = DefectForm(request.POST or None, instance=defect)
+        if form.is_valid():
+            defect = form.save(commit=False)
+            defect.author = request.user
+            defect.save()
+            form.save_m2m()
+            return redirect(show_defects)
+    else:
+        form = DefectForm(instance = defect)
+    return render(request, 'main/new_defect.html', {'defect':defect,'form':form})
+
+@login_required
+def delete_defect(request, id):
+    defect  = Defect.objects.get(id=id)
+    if defect:
+        defect.delete()
+    return redirect(show_defects)

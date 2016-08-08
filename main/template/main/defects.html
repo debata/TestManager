@@ -1,0 +1,17 @@
+<html>
+<title>Defects</title>
+<body>
+	<table>
+	{% for def in all_defects %}
+	<tr>
+	<td> {{ def.id }} </a></td>
+	<td><a href="{% url 'defect_by_id' def.id %}"> {{ def.name }} </a></td>
+	<td><a href="{% url 'update_defect' def.id %}">Edit</a></td>
+	<td><a href="{% url 'delete_defect' def.id %}" onclick="return confirm('Do you wish to delete this test case?');return false;">Delete</a></td>
+	</tr>
+	{% endfor %}
+	</table>
+	<br>
+	<a href="{% url 'new_defect' %}">Raise Defect</a>
+</body>
+</html>

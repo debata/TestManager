@@ -9,5 +9,8 @@
 	<td><a href="{% url 'delete_test_case' tc.id %}" onclick="return confirm('Do you wish to delete this test case?');return false;">Delete</a></td>
 	</tr>
 	{% endfor %}
+	</table>
+	<br>
+	<a href="{% url 'new_test_case' %}">New Test Case</a>
 </body>
 </html>
