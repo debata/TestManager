@@ -8,7 +8,6 @@ enum-compat==0.0.2
 gunicorn==19.6.0
 i3ipc==1.2.0
 Jinja2==2.8
-louis==3.0.0
 MarkupSafe==0.23
 packaging==16.7
 psutil==4.3.0
