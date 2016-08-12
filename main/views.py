@@ -41,6 +41,8 @@ def show_test_case(request, test_id):
 
 @login_required
 def new_test_case(request):
+    context = dict()
+    context['entity_label'] = 'New Test Case'
     if request.method == 'POST':
         form = TestCaseForm(request.POST)
         if form.is_valid():
@@ -51,10 +53,13 @@ def new_test_case(request):
             return redirect(home)
     else:
         form = TestCaseForm()
-    return render(request, 'main/new_test_case.html', {'form':form})
+    context['form'] = form
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def update_test_case(request, id):
+    context = dict()
+    context['entity_label'] = 'Update Test Case'
     test_case = get_object_or_404(TestCase, pk=id)
     if request.method == 'POST':
         form = TestCaseForm(request.POST or None, instance=test_case)
@@ -66,7 +71,9 @@ def update_test_case(request, id):
             return redirect(show_test_cases)
     else:
         form = TestCaseForm(instance = test_case)
-    return render(request, 'main/new_test_case.html', {'test_case':test_case,'form':form})
+    context['form'] = form
+    context['test_case'] = test_case
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def delete_test_case(request, id):
@@ -77,6 +84,8 @@ def delete_test_case(request, id):
 
 @login_required
 def run_test_case(request, test_group_id, test_case_id):
+    context = dict()
+    context['entity_label'] = 'Run Test'
     if request.method == 'POST':
         form = TestResultForm(request.POST)
         if form.is_valid():
@@ -94,7 +103,8 @@ def run_test_case(request, test_group_id, test_case_id):
             form = TestResultForm()
         else:
             return HttpResponse('Error - Test result has already been recordered for this test case')
-    return render(request, 'main/run_test_case.html', {'form':form})
+    context['form'] = form
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def view_test_result(request, result_id=None):
@@ -122,6 +132,8 @@ def show_test_charter(request, test_id):
 
 @login_required
 def new_test_charter(request):
+    context = dict()
+    context['entity_label'] = 'New Test Charter'
     if request.method == 'POST':
         form = TestCharterForm(request.POST)
         if form.is_valid():
@@ -132,10 +144,13 @@ def new_test_charter(request):
             return redirect(home)
     else:
         form = TestCharterForm()
-    return render(request, 'main/new_test_charter.html', {'form':form})
+    context['form'] = form
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def update_test_charter(request, id):
+    context = dict()
+    context['entity_label'] = 'Update Test Charter'
     test_charter = get_object_or_404(TestCharter, pk=id)
     if request.method == 'POST':
         form = TestCharterForm(request.POST or None, instance=test_charter)
@@ -147,7 +162,9 @@ def update_test_charter(request, id):
             return redirect(show_test_charters)
     else:
         form = TestCharterForm(instance = test_charter)
-    return render(request, 'main/new_test_charter.html', {'test_charter':test_charter,'form':form})
+    context['form'] = form
+    context['test_charter'] = test_charter
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def delete_test_charter(request, id):
@@ -188,6 +205,8 @@ def show_test_group(request, group_id):
 
 @login_required
 def new_test_group(request, version_id):
+    context = dict()
+    context['entity_label'] = 'New Test Group'
     if request.method == 'POST':
         form = TestGroupForm(request.POST)
         if form.is_valid():
@@ -198,10 +217,13 @@ def new_test_group(request, version_id):
             return show_test_groups(request, version_id=test_group.version.id)
     else:
         form = TestGroupForm()
-    return render(request, 'main/new_test_group.html', {'form':form})
+    context['form'] = form
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def update_test_group(request, id):
+    context = dict()
+    context['entity_label'] = 'Update Test Group'
     test_group = get_object_or_404(TestGroup, pk=id)
     if request.method == 'POST':
         form = TestGroupForm(request.POST or None, instance=test_group)
@@ -212,7 +234,9 @@ def update_test_group(request, id):
             return show_test_groups(request, version_id=test_group.version.id)
     else:
         form = TestGroupForm(instance = test_group)
-    return render(request, 'main/new_test_group.html', {'test_group':test_group,'form':form})
+    context['form'] = form
+    context['test_group'] = test_group
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def delete_test_group(request, id):
@@ -229,6 +253,8 @@ def show_versions(request):
     context)
 @login_required
 def new_version(request):
+    context = dict()
+    context['entity_label'] = 'New Version'
     if request.method == 'POST':
         form = VersionForm(request.POST)
         if form.is_valid():
@@ -237,10 +263,13 @@ def new_version(request):
             return redirect(show_versions)
     else:
         form = VersionForm()
-    return render(request, 'main/new_version.html', {'form':form})
+    context['form'] = form
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def update_version(request, id):
+    context = dict()
+    context['entity_label'] = 'Update Version'
     version = get_object_or_404(Version, pk=id)
     if request.method == 'POST':
         form = VersionForm(request.POST or None, instance=version)
@@ -249,7 +278,9 @@ def update_version(request, id):
             return redirect(show_versions)
     else:
         form = VersionForm(instance = version)
-    return render(request, 'main/new_version.html', {'version':version,'form':form})
+    context['form'] = form
+    context['version'] = version
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def delete_version(request, id):
@@ -267,6 +298,8 @@ def show_personas(request):
 
 @login_required
 def new_persona(request):
+    context = dict()
+    context['entity_label'] = 'New Persona'
     if request.method == 'POST':
         form = PersonaForm(request.POST)
         if form.is_valid():
@@ -275,10 +308,13 @@ def new_persona(request):
             return show_personas(request)
     else:
         form = PersonaForm()
-    return render(request, 'main/new_persona.html', {'form':form})
+    context['form'] = form
+    return render(request, 'main/entity_form.html', context) 
 
 @login_required
 def update_persona(request, id):
+    context = dict()
+    context['entity_label'] = 'Update Persona'
     persona = get_object_or_404(Persona, pk=id)
     if request.method == 'POST':
         form = PersonaForm(request.POST or None, instance=persona)
@@ -287,7 +323,9 @@ def update_persona(request, id):
             return show_personas(request)
     else:
         form = PersonaForm(instance = persona)
-    return render(request, 'main/new_persona.html', {'persona':persona,'form':form})
+    context['form'] = form
+    context['persona'] = persona
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def delete_persona(request, id):
@@ -315,6 +353,8 @@ def show_defect(request, defect_id):
 
 @login_required
 def new_defect(request):
+    context = dict()
+    context['entity_label'] = 'New Defect'
     if request.method == 'POST':
         form = DefectForm(request.POST)
         if form.is_valid():
@@ -325,10 +365,13 @@ def new_defect(request):
             return show_defects(request)
     else:
         form = DefectForm()
-    return render(request, 'main/new_defect.html', {'form':form})
+    context['form'] = form
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def update_defect(request, id):
+    context = dict()
+    context['entity_label'] = 'Update Defect'
     defect = get_object_or_404(Defect, pk=id)
     if request.method == 'POST':
         form = DefectForm(request.POST or None, instance=defect)
@@ -340,7 +383,9 @@ def update_defect(request, id):
             return show_defects(request)
     else:
         form = DefectForm(instance = defect)
-    return render(request, 'main/new_defect.html', {'defect':defect,'form':form})
+    context['form'] = form
+    context['defect'] = defect
+    return render(request, 'main/entity_form.html', context)
 
 @login_required
 def delete_defect(request, id):

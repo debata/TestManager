@@ -1,6 +1,6 @@
-<html>                                                                                       
-<title>Defect</title>                                                                
-<body>                                                                                       
+{% extends 'main/base.html' %}
+
+{% block content %}
 <table>                                                                                  
 <tr>
 <tr>
@@ -51,5 +51,4 @@
 </tr>
 </table>
 <a href="{% url 'update_defect' defect.id %}">Edit</a>
-</body>                                                                                      
-</html>
+{% endblock %}

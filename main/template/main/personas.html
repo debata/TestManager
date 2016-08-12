@@ -1,6 +1,7 @@
-<html>
-<title> All Personas</title>
-<body>
+{% extends 'main/base.html' %}
+
+{% block content %}
+	<br>
 	<table>
 	{% for persona in all_personas %}
 	<tr>
@@ -17,6 +18,6 @@
 	</tr>
 	{% endfor %}
 	</table>
+	<br>
 	<a href="{% url 'new_persona' %}">Create new persona</a>
-</body>
-</html>
+{% endblock %}

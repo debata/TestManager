@@ -1,6 +1,6 @@
-<html>
-<title>Defects</title>
-<body>
+{% extends 'main/base.html' %}
+
+{% block content %}
 	<table>
 	{% for def in all_defects %}
 	<tr>
@@ -13,5 +13,4 @@
 	</table>
 	<br>
 	<a href="{% url 'new_defect' %}">Raise Defect</a>
-</body>
-</html>
+{% endblock %}

@@ -1,6 +1,6 @@
-<html>                                                                                       
-<title>Test Result</title>                                                                
-<body>                                                                                       
+{% extends 'main/base.html' %}
+
+{% block content %}
 <table>                                                                                  
 <tr>
 <tr>
@@ -20,5 +20,4 @@
 	<td>{{ result.execution_date }}</td>
 </tr>
 </table>
-</body>                                                                                      
-</html>
+{% endblock %}

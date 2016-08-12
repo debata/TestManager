@@ -1,6 +1,6 @@
-<html>                                                                                       
-<title>All Test Cases</title>                                                                
-<body>                                                                                       
+{% extends 'main/base.html' %}
+
+{% block content %}
 <table>                                                                                  
 <tr>
 <td>Versions:</td>
@@ -34,5 +34,4 @@
 </tr>
 </table>
 <a href="{% url 'update_test_case' test_case.id %}">Edit</a>
-</body>                                                                                      
-</html>
+{% endblock %}

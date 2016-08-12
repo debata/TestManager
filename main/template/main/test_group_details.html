@@ -1,6 +1,6 @@
-<html>                                                                                       
-<title>Test Group</title>                                                                
-<body>                                                                                       
+{% extends 'main/base.html' %}
+
+{% block content %}
 <table>                                                                                  
 <tr>
 <tr>
@@ -33,5 +33,4 @@
 </tr>
 </table>
 <a href="{% url 'update_test_group' test_group.id  %}">Edit</a>
-</body>                                                                                      
-</html>
+{% endblock %}

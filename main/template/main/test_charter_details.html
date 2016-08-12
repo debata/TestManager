@@ -1,6 +1,6 @@
-<html>                                                                                       
-<title>Test Charter</title>                                                                
-<body>                                                                                       
+{% extends 'main/base.html' %}
+
+{% block content %}
 <table>                                                                                  
 <tr>
 <td>Versions:</td>
@@ -42,5 +42,4 @@
 </tr>
 </table>
 <a href="{% url 'update_test_charter' test_charter.id %}">Edit</a>
-</body>                                                                                      
-</html>
+{% endblock %}

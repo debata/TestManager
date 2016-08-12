@@ -1,6 +1,6 @@
-<html>
-<title>All Test Charters</title>
-<body>
+{% extends 'main/base.html' %}
+
+{% block content %}
 	<table>
 	{% for tc in all_test_charters %}
 	<tr>
@@ -12,5 +12,4 @@
 	</table>
 	<br>
 	<a href="{% url 'new_test_charter' %}">New Test Charter</a>
-</body>
-</html>
+{% endblock %}

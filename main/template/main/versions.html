@@ -1,6 +1,6 @@
-<html>
-<title> All Versions</title>
-<body>
+{% extends 'main/base.html' %}
+
+{% block content %}
 	<table>
 	{% for version in all_versions %}
 	<tr>
@@ -15,5 +15,4 @@
 	{% endfor %}
 	</table>
 	<a href="{% url 'new_version' %}">Create new version</a>
-</body>
-</html>
+{% endblock %}

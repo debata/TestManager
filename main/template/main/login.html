@@ -40,10 +40,10 @@
 </p>
 <p class="bs-component">
 <center>
-<input class="btn btn-success btn-sm" type="submit" value="login" />
+<input class="btn btn-success btn-sm" type="submit" value="Login" />
+<input type=button value="Register" onClick="location.href='{% url 'register_user' %}'">	
 </center>
 </p>
-<a href="{% url 'register_user' %}">Register Here!</a>
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 </div>

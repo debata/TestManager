@@ -1,13 +1,10 @@
-<HTML>
-<TITLE>Home</TITLE>
-<BODY>
-<a href="{% url 'logout' %}">Logout</a>
+{% extends 'main/base.html' %}
+
+{% block content %}
 <br>
+<a href="{% url 'show_all_versions' %}">Versions</a>
 <br>
-<a href="{% url 'show_all_versions' %}">Show Versions</a>
+<a href="{% url 'show_all_personas' %}">Personas</a>
 <br>
-<a href="{% url 'show_all_personas' %}">Show Personas</a>
-<br>
-<a href="{% url 'show_all_defects' %}">Show Defects</a>
-</BODY>
-</HTML>
+<a href="{% url 'show_all_defects' %}">Defects</a>
+{% endblock %}

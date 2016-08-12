@@ -1,6 +1,6 @@
-<html>
-<title>All Test Cases</title>
-<body>
+{% extends 'main/base.html' %}
+
+{% block content %}
 	<table>
 	{% for tc in all_test_cases %}
 	<tr>
@@ -12,5 +12,4 @@
 	</table>
 	<br>
 	<a href="{% url 'new_test_case' %}">New Test Case</a>
-</body>
-</html>
+{% endblock %}

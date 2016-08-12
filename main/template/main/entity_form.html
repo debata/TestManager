@@ -1,0 +1,11 @@
+<html>
+	<body>
+		<h1>{{ entity_label }}</h1>
+		<form method="POST" >
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type=button value="Back" onClick="history.go(-1);">	
+			<button type="submit" >Save</button>
+		</form>
+	</body>
+</html>
