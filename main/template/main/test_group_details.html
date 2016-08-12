@@ -18,7 +18,10 @@
 	<tr>
 		<td>{{ tc.0 }}</td>
 		<td><a href="{% url 'run_test_case_by_id_from_group' test_group.id tc.0.id%}">Run</a></td>
+		{% if tc.2 is not none %}
 		<td><a href="{% url 'view_test_result' tc.2 %}">{{ tc.1 }}</a></td>
+		{% else %}
+		{% endif %}
 	</tr>
 	{% endfor %}
 </tr>
