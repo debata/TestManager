@@ -1,0 +1,46 @@
+<html>                                                                                       
+<title>Test Charter</title>                                                                
+<body>                                                                                       
+<table>                                                                                  
+<tr>
+<td>Versions:</td>
+{% for version in test_charter.versions.all %}
+<td>{{ version.number }} - {{ version.name }} </td>
+{% endfor %}
+</tr>
+<tr>
+	<td>Priority:</td>
+	<td>{{ test_charter.priority }}</td>
+</tr>
+<tr>
+	<td>Name: </td>
+	<td>{{ test_charter.name }}</td>
+</tr>
+<tr>
+	<td>Prerequisites:</td>
+	<td>{{ test_charter.prerequisites }}</td>
+</tr>
+<tr>
+	<td>Persona</td>
+	<td>{{ test_charter.persona }}</td>
+</tr>
+<tr>
+	<td>Objective:</td>
+	<td>{{ test_charter.objective }}</td>
+</tr>
+<tr>
+	<td>Scope:</td>
+	<td>{{ test_charter.scope }}</td>
+</tr>
+<tr>
+	<td>Test Notes:</td>
+	<td>{{ test_charter.test_notes }}</td>
+</tr>
+<tr>
+	<td>Last Author:</td>
+	<td>{{ test_charter.author.username }}</td>
+</tr>
+</table>
+<a href="{% url 'update_test_charter' test_charter.id %}">Edit</a>
+</body>                                                                                      
+</html>

@@ -28,6 +28,36 @@ class TestCase(models.Model):
     def __str__(self):
         return str(self.id) + ' - ' + self.name
 
+
+class TestCharter(models.Model):
+    versions = models.ManyToManyField(Version)
+    priority = models.CharField(max_length=15, choices=[('Critical', 'Critical'),('High', 'High'),('Medium', 'Medium'),('Low','Low')])
+    name = models.CharField(max_length=50)
+    prerequisites = models.CharField(max_length=50, blank=True)
+    persona = models.ForeignKey(Persona)
+    objective  =  models.TextField(max_length=None)
+    scope  =  models.TextField(max_length=None)
+    test_notes =  models.TextField(max_length=None)
+    author = models.ForeignKey(User)
+
+    def __str__(self):
+        return str(self.id) + ' - ' + self.name
+
+class TestGroup(models.Model):
+    version =  models.ForeignKey(Version)
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=None)
+    test_cases = models.ManyToManyField(TestCase, blank=True)
+    test_charters = models.ManyToManyField(TestCharter, blank=True)
+
+class TestResult(models.Model):
+    test_case = models.ForeignKey(TestCase)
+    test_group = models.ForeignKey(TestGroup)
+    result = models.CharField(max_length=15, choices=[('Not Run', 'Not Run'),('Pass', 'Pass'),('Fail', 'Fail'),('N/A','N/A')])
+    result_notes =  models.TextField(max_length=None)
+    tester = models.ForeignKey(User, editable=False)
+    execution_date = models.DateTimeField(editable=False)
+
 class Defect(models.Model):
     name = models.CharField(max_length=50)
     description =  models.TextField(max_length=None)

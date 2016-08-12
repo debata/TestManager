@@ -1,0 +1,17 @@
+<html>
+<title>Test Groups</title>
+<body>
+	<table>
+	{% for tg in all_test_groups %}
+	<tr>
+	<td> {{ tg.id }} </a></td>
+	<td><a href="{% url 'test_group_by_id' tg.id %}"> {{ tg.name }} </a></td>
+	<td><a href="{% url 'update_test_group' tg.id %}">Edit</a></td>
+	<td><a href="{% url 'delete_test_group' tg.id %}" onclick="return confirm('Do you wish to delete this test group?');return false;">Delete</a></td>
+	</tr>
+	{% endfor %}
+	</table>
+	<br>
+	<a href="{% url 'new_test_group' version_id %}">Create Group</a>
+</body>
+</html>
