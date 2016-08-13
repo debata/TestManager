@@ -58,6 +58,14 @@ class TestResult(models.Model):
     tester = models.ForeignKey(User, editable=False)
     execution_date = models.DateTimeField(editable=False)
 
+class TestSession(models.Model):
+    test_charter = models.ForeignKey(TestCharter)
+    test_group = models.ForeignKey(TestGroup)
+    areas_tested =  models.TextField(max_length=None, blank=True)
+    notes =  models.TextField(max_length=None)
+    tester = models.ForeignKey(User, editable=False)
+    execution_date = models.DateTimeField(editable=False)
+
 class Defect(models.Model):
     name = models.CharField(max_length=50)
     description =  models.TextField(max_length=None)

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from main.models import Version, TestCase, TestCharter, TestGroup, Persona, Defect, TestResult
+from main.models import Version, TestCase, TestCharter, TestGroup, Persona, Defect, TestResult, TestSession
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label="Username", max_length=30,
@@ -44,3 +44,7 @@ class TestResultForm(forms.ModelForm):
         model = TestResult
         fields = ('result', 'result_notes')
 
+class TestSessionForm(forms.ModelForm):
+    class Meta:
+        model =  TestSession
+        fields = ('areas_tested', 'notes')

@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from main.models import Version, TestCase, TestCharter, TestGroup, Persona, Defect, TestResult
-from main.forms import VersionForm, TestCaseForm, TestCharterForm, TestGroupForm, PersonaForm, DefectForm, TestResultForm
+from main.models import Version, TestCase, TestCharter, TestGroup, Persona, Defect, TestResult, TestSession
+from main.forms import VersionForm, TestCaseForm, TestCharterForm, TestGroupForm, PersonaForm, DefectForm, TestResultForm, TestSessionForm
 
 # Create your views here.
 def register(request):
@@ -107,11 +107,42 @@ def run_test_case(request, test_group_id, test_case_id):
     return render(request, 'main/entity_form.html', context)
 
 @login_required
+def run_test_charter(request, test_group_id, test_charter_id):
+    context = dict()
+    context['entity_label'] = 'Run Test'
+    if request.method == 'POST':
+        form = TestSessionForm(request.POST)
+        if form.is_valid():
+            test_session = form.save(commit=False)
+            test_session.test_charter = TestCharter.objects.get(id=test_charter_id)
+            test_session.test_group = TestGroup.objects.get(id=test_group_id)
+            test_session.tester = request.user
+            test_session.execution_date = datetime.datetime.now()
+            test_session.save()
+            form.save_m2m()
+            return show_test_group(request,test_group_id)
+    else:
+        tr = TestSession.objects.filter(test_charter__id=test_charter_id, test_group__id=test_group_id).exists()
+        if not tr:
+            form = TestSessionForm()
+        else:
+            return HttpResponse('Error - Test session has already been recordered for this test case')
+    context['form'] = form
+    return render(request, 'main/entity_form.html', context)
+
+@login_required
 def view_test_result(request, result_id=None):
     context = dict()
     if result_id:
         context['result'] = TestResult.objects.get(id=result_id)
     return render(request, "main/test_result.html", context)
+
+@login_required
+def view_test_session(request, test_session_id=None):
+    context = dict()
+    if test_session_id:
+        context['test_session'] = TestSession.objects.get(id=test_session_id)
+    return render(request, "main/test_session.html", context)
 
 @login_required
 def show_test_charters(request, version_id=None):
@@ -198,8 +229,19 @@ def show_test_group(request, group_id):
         else:
             test_results.append(None)
             result_ids.append(None)
+    test_sessions = []
+    session_ids = []
+    for test in group.test_charters.all():
+        session_set = test.testsession_set.filter(test_group__id=group_id)
+        if session_set:
+            session_ids.append(session_set[0].id)
+            test_sessions.append('Session')
+        else:
+            test_sessions.append(None)
+            session_ids.append(None)
     context['test_group'] = group
     context['test_cases'] = zip(group.test_cases.all(), test_results, result_ids)
+    context['test_charters'] = zip(group.test_charters.all(), test_sessions, session_ids)
     return render(request, "main/test_group_details.html",
     context)
 
