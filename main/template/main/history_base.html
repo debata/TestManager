@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<title>Test Manager</title>
+	</head>
+	<body>
+		<input type=button value="Home" onClick="location.href='{% url 'home' %}'">	
+		<input type=button value="Back" onClick="history.go(-1);">	
+		<input type=button value="Logout" onClick="location.href='{% url 'logout' %}'">	
+		<br>
+		{% block content %}
+		{% endblock %}
+	</body>
+</html>
