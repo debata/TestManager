@@ -1,23 +1,25 @@
 {% extends 'main/history_base.html' %}
 
 {% block content %}
-<table>                                                                                  
-<tr>
-<tr>
-	<td>Areas Tested: </td>
-	<td>{{ test_session.areas_tested }}</td>
-</tr>
-<tr>
-	<td>Notes: </td>
-	<td>{{ test_session.notes }}</td>
-</tr>
-<tr>
-	<td>Tester: </td>
-	<td>{{ test_session.tester }}</td>
-</tr>
-<tr>
-	<td>Execution Date: </td>
-	<td>{{ test_session.execution_date }}</td>
-</tr>
-</table>
+<div class="table">
+	<table class="table">
+	<tr>
+	<tr>
+		<td>Areas Tested: </td>
+		<td>{{ test_session.areas_tested }}</td>
+	</tr>
+	<tr>
+		<td>Notes: </td>
+		<td>{{ test_session.notes }}</td>
+	</tr>
+	<tr>
+		<td>Tester: </td>
+		<td>{{ test_session.tester }}</td>
+	</tr>
+	<tr>
+		<td>Execution Date: </td>
+		<td>{{ test_session.execution_date }}</td>
+	</tr>
+	</table>
+<div>
 {% endblock %}

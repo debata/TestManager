@@ -1,7 +1,8 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-	<table>
+<div class="container">
+	<table class="table">
 	{% for tc in all_test_charters %}
 	<tr>
 	<td><a href="{% url 'test_charter_by_id' tc.id %}"> {{ tc.name }} </a></td>
@@ -11,5 +12,7 @@
 	{% endfor %}
 	</table>
 	<br>
-	<a href="{% url 'new_test_charter' %}">New Test Charter</a>
+	
+	<input class="btn btn-success btn-sm" type=button value="Create Test Charter" onClick="location.href='{% url 'new_test_charter' %}'">
+</div>
 {% endblock %}

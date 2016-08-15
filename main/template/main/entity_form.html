@@ -1,11 +1,26 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{# Display a form #}
 <html>
 	<body>
+		<div class="container">
 		<h1>{{ entity_label }}</h1>
 		<form method="POST" >
 			{% csrf_token %}
-			{{ form.as_p }}
-			<input type=button value="Back" onClick="history.go(-1);">	
-			<button type="submit" >Save</button>
+			{% bootstrap_form form %}
+			{% buttons %}
+			<input type=button class="btn btn-primary" value="Back" onClick="history.go(-1);">	
+			<button class="btn btn-primary" type="submit" >Save</button>
+			{% endbuttons %}
 		</form>
+		</div>
 	</body>
 </html>

@@ -1,7 +1,8 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-	<table>
+<div class='container'>
+	<table class="table">
 	{% for version in all_versions %}
 	<tr>
 	<td>{{ version.number }}</td>
@@ -14,5 +15,6 @@
 	</tr>
 	{% endfor %}
 	</table>
-	<a href="{% url 'new_version' %}">Create new version</a>
+	<input class="btn btn-success btn-sm" type=button value="Create Version" onClick="location.href='{% url 'new_version' %}'">
+</div>
 {% endblock %}

@@ -1,10 +1,12 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<div class='container'>
 <br>
 <a href="{% url 'show_all_versions' %}">Versions</a>
 <br>
 <a href="{% url 'show_all_personas' %}">Personas</a>
 <br>
 <a href="{% url 'show_all_defects' %}">Defects</a>
+</div>
 {% endblock %}

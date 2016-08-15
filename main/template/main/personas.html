@@ -1,8 +1,9 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<div class="container">
 	<br>
-	<table>
+	<table class="table">
 	{% for persona in all_personas %}
 	<tr>
 		<td>Persona:</td>
@@ -19,5 +20,6 @@
 	{% endfor %}
 	</table>
 	<br>
-	<a href="{% url 'new_persona' %}">Create new persona</a>
+	<input class="btn btn-success btn-sm" type=button value="Create Persona" onClick="location.href='{% url 'new_persona' %}'">
+</div>
 {% endblock %}

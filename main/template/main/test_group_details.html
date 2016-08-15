@@ -1,27 +1,35 @@
 {% extends 'main/history_base.html' %}
 
 {% block content %}
-	<table>                                                                                  
+<div class="container">
+	<table class="table">                                                                                  
 		<tr>
 			<td>Name: </td>
 			<td>{{ test_group.name }}</td>
 		</tr>
-		<tr>
-			<td>Description: </td>
+		<tr> <td>Description: </td>
 			<td>{{ test_group.description }}</td>
 		</tr>
 	</table>
-	<table>
+	<br><br>
+	<table class="table">
 		<tr>
 			<th>Test Cases </th>
 		</tr>
 		{% for tc in test_cases %}
-		<tr>
+		{% if tc.1 == 'Pass' %}
+		<tr class='success'>
+		{% elif tc.1 == 'Fail' %}
+		<tr class='danger'>
+		{% else %}
+		<tr class='info'>
+		{% endif %}
 			<td>{{ tc.0 }}</td>
 			<td><a href="{% url 'run_test_case_by_id_from_group' test_group.id tc.0.id%}">Run</a></td>
 			{% if tc.2 is not none %}
 			<td><a href="{% url 'view_test_result' tc.2 %}">{{ tc.1 }}</a></td>
 			{% else %}
+			<td></td>
 			{% endif %}
 		</tr>
 		{% endfor %}
@@ -42,4 +50,5 @@
 	</tr>
 </table>
 <a href="{% url 'update_test_group' test_group.id  %}">Edit</a>
+</div>
 {% endblock %}

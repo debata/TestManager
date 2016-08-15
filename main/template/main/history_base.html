@@ -1,11 +1,24 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{# Display a form #}
 <html>
 	<head>
 		<title>Test Manager</title>
 	</head>
 	<body>
-		<input type=button value="Home" onClick="location.href='{% url 'home' %}'">	
-		<input type=button value="Back" onClick="history.go(-1);">	
-		<input type=button value="Logout" onClick="location.href='{% url 'logout' %}'">	
+		{% buttons %}
+		<input type=button class="btn btn-primary" value="Home" onClick="location.href='{% url 'home' %}'">	
+		<input type=button class="btn btn-primary" value="Back" onClick="history.go(-1);">	
+		<input type=button class="btn btn-primary" value="Logout" onClick="location.href='{% url 'logout' %}'">	
+		{% endbuttons %}
 		<br>
 		{% block content %}
 		{% endblock %}

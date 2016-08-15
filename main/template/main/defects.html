@@ -1,7 +1,8 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-	<table>
+<div class="container">
+	<table class="table">
 	{% for def in all_defects %}
 	<tr>
 	<td> {{ def.id }} </a></td>
@@ -12,5 +13,6 @@
 	{% endfor %}
 	</table>
 	<br>
-	<a href="{% url 'new_defect' %}">Raise Defect</a>
+	<input class="btn btn-success btn-sm" type=button value="Create Defect" onClick="location.href='{% url 'new_defect' %}'">
+</div>
 {% endblock %}
