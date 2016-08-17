@@ -19,7 +19,11 @@ def register(request):
 
 @login_required
 def home(request):
-    return render(request, "main/home.html")
+    context = dict()
+    context['username'] = request.user
+    context['user_defects'] = Defect.objects.filter(assigned=request.user)
+    context['reported_defects'] = Defect.objects.filter(reporter=request.user)
+    return render(request, "main/home.html", context)
 
 
 @login_required
