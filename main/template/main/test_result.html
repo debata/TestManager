@@ -1,23 +1,26 @@
-{% extends 'main/history_base.html' %}
+{% extends 'main/base.html' %}
 
 {% block content %}
-<table class="table">
-<tr>
-<tr>
-	<td>Result: </td>
-	<td>{{ result.result }}</td>
-</tr>
-<tr>
-	<td>Notes: </td>
-	<td>{{ result.result_notes }}</td>
-</tr>
-<tr>
-	<td>Tester: </td>
-	<td>{{ result.tester }}</td>
-</tr>
-<tr>
-	<td>Execution Date: </td>
-	<td>{{ result.execution_date }}</td>
-</tr>
-</table>
+<div class="container">
+	<table class="table">
+	<tr>
+	<tr>
+		<td>Result: </td>
+		<td>{{ result.result }}</td>
+	</tr>
+	<tr>
+		<td>Notes: </td>
+		<td>{{ result.result_notes }}</td>
+	</tr>
+	<tr>
+		<td>Tester: </td>
+		<td>{{ result.tester }}</td>
+	</tr>
+	<tr>
+		<td>Execution Date: </td>
+		<td>{{ result.execution_date }}</td>
+	</tr>
+	</table>
+	<input type=button class="btn btn-primary" value="Back" onClick="history.go(-1);">	
+</div>
 {% endblock %}

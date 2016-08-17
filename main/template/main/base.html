@@ -1,24 +1,55 @@
-{# Load the tag library #}
-{% load bootstrap3 %}
-
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-{# Display a form #}
 <html>
 	<head>
 		<title>Test Manager</title>
 	</head>
 	<body>
-		{% buttons %}
-		<input type=button class="btn btn-primary" value="Home" onClick="location.href='{% url 'home' %}'">	
-		<input type=button class="btn btn-primary" value="Back" onClick="location.href='../'">	
-		<input type=button class="btn btn-primary" value="Logout" onClick="location.href='{% url 'logout' %}'">	
-		{% endbuttons %}
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	{# Load the tag library #}
+	{% load bootstrap3 %}
+	{# Load CSS and JavaScript #}
+	{% bootstrap_css %}
+	{% bootstrap_javascript %}
+
+	{# Display django.contrib.messages as Bootstrap alerts #}
+	{% bootstrap_messages %}
+
+	{# Display a form #}
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">	
+			  <li><a href="{% url 'home' %}">Home</a></li>
+			  <li class="dropdown" >
+				  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">Product<span class="caret"></span></a>
+			  	<ul class="dropdown-menu">
+					<li><a href="{% url 'show_all_versions' %}">All Versions</a></li>
+					<li><a href="{% url 'new_version' %}">Create New Version</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="{% url 'show_all_personas' %}">All Personas</a></li>
+					<li><a href="{% url 'new_test_charter' %}">New Persona</a></li>
+				</ul>
+			 </li>
+			 <li class="dropdown" >
+				 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">Quality<span class="caret"></span></a>
+			  	<ul class="dropdown-menu">
+					<li><a href="{% url 'show_all_defects' %}">All Defects</a></li>
+					<li><a href="{% url 'new_defect' %}">Raise Defect</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="{% url 'show_all_test_cases' %}">All Test Cases</a></li>
+					<li><a href="{% url 'new_test_case' %}">New Test Case</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="{% url 'show_all_test_charters' %}">All Test Charters</a></li>
+					<li><a href="{% url 'new_test_charter' %}">New Test Charter</a></li>
+				</ul>
+			 </li>
+			 <form class="navbar-form navbar-left">
+				 <div class="form-group">
+					   <input type="text" class="form-control" placeholder="Search">
+			   </div>
+			   <button type="submit" class="btn btn-default">Go!</button>
+			 </form>
+			 <li><a href="{% url 'logout' %}">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+		 </ul>
+	</div>
+
 		<br>
 		{% block content %}
 		{% endblock %}

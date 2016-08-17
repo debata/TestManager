@@ -1,4 +1,4 @@
-{% extends 'main/history_base.html' %}
+{% extends 'main/base.html' %}
 
 {% block content %}
 <div class="container">
@@ -25,10 +25,11 @@
 		<tr class='info'>
 		{% endif %}
 			<td>{{ tc.0 }}</td>
-			<td><a href="{% url 'run_test_case_by_id_from_group' test_group.id tc.0.id%}">Run</a></td>
 			{% if tc.2 is not none %}
-			<td><a href="{% url 'view_test_result' tc.2 %}">{{ tc.1 }}</a></td>
+			<td><span class="label label-info">Complete</span></td>
+			<td><a href="{% url 'view_test_result' tc.2 %}"><span class="label label-primary">{{ tc.1 }}</span></a></td>
 			{% else %}
+			<td><a href="{% url 'run_test_case_by_id_from_group' test_group.id tc.0.id%}"><span class="label label-default">Run</span></a></td>
 			<td></td>
 			{% endif %}
 		</tr>
@@ -40,10 +41,11 @@
 		</tr>
 		<tr>
 			<td>{{ tc.0 }}</td>
-			<td><a href="{% url 'run_test_charter_by_id_from_group' test_group.id tc.0.id%}">Run</a></td>
 			{% if tc.2 is not none %}
-			<td><a href="{% url 'view_test_session' tc.2 %}">{{ tc.1 }}</a></td>
+			<td><span class="label label-info">Complete</span></td>
+			<td><a href="{% url 'view_test_session' tc.2 %}"><span class="label label-info">{{ tc.1 }}</a></td>
 			{% else %}
+			<td><a href="{% url 'run_test_charter_by_id_from_group' test_group.id tc.0.id%}"><span class="label label-warning">Run</span></a></td>
 			{% endif %}
 		</tr>
 		{% endfor %}

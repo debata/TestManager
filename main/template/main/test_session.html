@@ -1,7 +1,7 @@
-{% extends 'main/history_base.html' %}
+{% extends 'main/base.html' %}
 
 {% block content %}
-<div class="table">
+<div class="container">
 	<table class="table">
 	<tr>
 	<tr>
@@ -21,5 +21,6 @@
 		<td>{{ test_session.execution_date }}</td>
 	</tr>
 	</table>
+	<input type=button class="btn btn-primary" value="Back" onClick="history.go(-1);">	
 <div>
 {% endblock %}

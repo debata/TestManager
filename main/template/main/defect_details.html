@@ -1,54 +1,56 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<table class="table">
-<tr>
-<tr>
-	<td>Name: </td>
-	<td>{{ defect.name }}</td>
-</tr>
-<tr>
-	<td>Description: </td>
-	<td>{{ defect.description }}</td>
-</tr>
-<tr>
-	<td>Status: </td>
-	<td>{{ defect.status }}</td>
-</tr>
-<tr>
-	<td>Priority: </td>
-	<td>{{ defect.priority }}</td>
-</tr>
-<tr>
-<td>Affected Versions:</td>
-{% for version in defect.affected_versions.all %}
-<td>{{ version.number }} - {{ version.name }} </td>
-{% endfor %}
-</tr>
-<tr>
-<td>Fixed Versions:</td>
-{% for version in defect.fixed_versions.all %}
-<td>{{ version.number }} - {{ version.name }} </td>
-{% endfor %}
-</tr>
-<tr>
-	<td>Procedure:</td>
-	<td>{{ defect.procedure }}</td>
-</tr>
-<tr>
-	<td>Reporter:</td>
-	<td>{{ defect.reporter.username }}</td>
-</tr>
-<tr>
-	<td>Assigned to::</td>
-	<td>{{ defect.assigned.username }}</td>
-</tr>
-<tr>
-<td>Affected Test Cases:</td>
-{% for test_case in defect.affected_test_cases.all %}
-<td>{{ test_case.number }} - {{ test_case.name }} </td>
-{% endfor %}
-</tr>
-</table>
-<a href="{% url 'update_defect' defect.id %}">Edit</a>
+<div class="container">
+	<table class="table">
+	<tr>
+	<tr>
+		<td>Name: </td>
+		<td>{{ defect.name }}</td>
+	</tr>
+	<tr>
+		<td>Description: </td>
+		<td>{{ defect.description }}</td>
+	</tr>
+	<tr>
+		<td>Status: </td>
+		<td>{{ defect.status }}</td>
+	</tr>
+	<tr>
+		<td>Priority: </td>
+		<td>{{ defect.priority }}</td>
+	</tr>
+	<tr>
+	<td>Affected Versions:</td>
+	{% for version in defect.affected_versions.all %}
+	<td>{{ version.number }} - {{ version.name }} </td>
+	{% endfor %}
+	</tr>
+	<tr>
+	<td>Fixed Versions:</td>
+	{% for version in defect.fixed_versions.all %}
+	<td>{{ version.number }} - {{ version.name }} </td>
+	{% endfor %}
+	</tr>
+	<tr>
+		<td>Procedure:</td>
+		<td>{{ defect.procedure }}</td>
+	</tr>
+	<tr>
+		<td>Reporter:</td>
+		<td>{{ defect.reporter.username }}</td>
+	</tr>
+	<tr>
+		<td>Assigned to::</td>
+		<td>{{ defect.assigned.username }}</td>
+	</tr>
+	<tr>
+	<td>Affected Test Cases:</td>
+	{% for test_case in defect.affected_test_cases.all %}
+	<td>{{ test_case.number }} - {{ test_case.name }} </td>
+	{% endfor %}
+	</tr>
+	</table>
+	<input class="btn btn-success btn-sm" type=button value="Edit" onClick="location.href='{% url 'update_defect' defect.id %}'"/>
+</div>
 {% endblock %}

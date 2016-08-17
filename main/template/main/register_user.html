@@ -1,8 +1,22 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
 {% block content %}
-<h1>New Version</h1>
-<form method="POST" >
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit" >Save</button>
-</form>
+<div class="container">
+<h1>Register</h1>
+	<form method="POST" >
+	{% csrf_token %}
+	{% bootstrap_form form %}
+	{% buttons %}
+	<input type=button class="btn btn-danger" value="Back" onClick="history.go(-1);">	
+	<button class="btn btn-success" type="submit" >Save</button>
+	{% endbuttons %}
+	</form>
+</div>
 {% endblock %}

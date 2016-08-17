@@ -1,7 +1,8 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<table>                                                                                  
+<div class="container">
+<table class="table">                                                                                  
 <tr>
 <td>Versions:</td>
 {% for version in test_charter.versions.all %}
@@ -41,5 +42,6 @@
 	<td>{{ test_charter.author.username }}</td>
 </tr>
 </table>
-<a href="{% url 'update_test_charter' test_charter.id %}">Edit</a>
+<input class="btn btn-success btn-sm" type=button value="Edit" onClick="location.href='{% url 'update_test_charter' test_charter.id %}'"/>
+</div>
 {% endblock %}
