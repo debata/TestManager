@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Version(models.Model):
     number = models.CharField(max_length=20)
     name = models.CharField(max_length=50)
-    description = models.TextField(max_length=None, blank=True)
+    description = models.TextField(max_length=None, blank=True, null=True)
 
     def __str__(self):
         return str(self.number) + ' - ' + self.name
@@ -20,7 +20,7 @@ class TestCase(models.Model):
     versions = models.ManyToManyField(Version)
     priority = models.CharField(max_length=15, choices=[('Critical', 'Critical'),('High', 'High'),('Medium', 'Medium'),('Low','Low')])
     name = models.CharField(max_length=50)
-    prerequisites = models.CharField(max_length=50, blank=True)
+    prerequisites = models.CharField(max_length=50, blank=True, null=True)
     persona = models.ForeignKey(Persona)
     procedure =  models.TextField(max_length=None)
     author = models.ForeignKey(User)
@@ -33,7 +33,7 @@ class TestCharter(models.Model):
     versions = models.ManyToManyField(Version)
     priority = models.CharField(max_length=15, choices=[('Critical', 'Critical'),('High', 'High'),('Medium', 'Medium'),('Low','Low')])
     name = models.CharField(max_length=50)
-    prerequisites = models.CharField(max_length=50, blank=True)
+    prerequisites = models.CharField(max_length=50, blank=True, null=True)
     persona = models.ForeignKey(Persona)
     objective  =  models.TextField(max_length=None)
     scope  =  models.TextField(max_length=None)
@@ -47,8 +47,8 @@ class TestGroup(models.Model):
     version =  models.ForeignKey(Version)
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=None)
-    test_cases = models.ManyToManyField(TestCase, blank=True)
-    test_charters = models.ManyToManyField(TestCharter, blank=True)
+    test_cases = models.ManyToManyField(TestCase, blank=True, null=True)
+    test_charters = models.ManyToManyField(TestCharter, blank=True, null=True)
 
 class TestResult(models.Model):
     test_case = models.ForeignKey(TestCase)
@@ -61,7 +61,7 @@ class TestResult(models.Model):
 class TestSession(models.Model):
     test_charter = models.ForeignKey(TestCharter)
     test_group = models.ForeignKey(TestGroup)
-    areas_tested =  models.TextField(max_length=None, blank=True)
+    areas_tested =  models.TextField(max_length=None, blank=True, null=True)
     notes =  models.TextField(max_length=None)
     tester = models.ForeignKey(User, editable=False)
     execution_date = models.DateTimeField(editable=False)
@@ -71,11 +71,11 @@ class Defect(models.Model):
     description =  models.TextField(max_length=None)
     status = models.CharField(max_length=15, choices=[('Open', 'Open'),('In-work', 'In-work'),('Fixed', 'Fixed'),('In-test','In-test'),('Closed','Closed')])
     priority = models.CharField(max_length=15, choices=[('Critical', 'Critical'),('High', 'High'),('Medium', 'Medium'),('Low','Low')])
-    affected_versions = models.ManyToManyField(Version, related_name='affected_versions', blank=True)
-    fixed_versions = models.ManyToManyField(Version, related_name='fixed_version', blank=True)
+    affected_versions = models.ManyToManyField(Version, related_name='affected_versions', blank=True, null=True)
+    fixed_versions = models.ManyToManyField(Version, related_name='fixed_version', blank=True, null=True)
     procedure =  models.TextField(max_length=None)
     reporter = models.ForeignKey(User, related_name='reporter_user')
-    assigned = models.ForeignKey(User, related_name='assigned_user', blank=True)
-    affected_test_cases = models.ManyToManyField(TestCase, blank=True)
+    assigned = models.ForeignKey(User, related_name='assigned_user', blank=True, null=True)
+    affected_test_cases = models.ManyToManyField(TestCase, blank=True, null=True)
 
 
