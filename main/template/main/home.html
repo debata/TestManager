@@ -5,7 +5,7 @@
 <br>
 	<h1> Welcome {{ username }} </h1>
 	<div class="panel panel-danger">
-		<div class="panel-heading">Assigned Defects</div>
+		<div class="panel-heading">Open Assigned Defects</div>
 		<div class="panel-body">
 		{% if user_defects|length > 0 %}
 		<table class="table table-hover">
@@ -34,7 +34,7 @@
 		</div>
 	</div>
 	<div class="panel panel-info">
-		<div class="panel-heading">Reported Defects</div>
+		<div class="panel-heading">Open Reported Defects</div>
 		<div class="panel-body">
 			{% if reported_defects|length > 0 %}
 			<table class="table table-hover">

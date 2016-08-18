@@ -2,55 +2,58 @@
 
 {% block content %}
 <div class="container">
-	<table class="table">                                                                                  
-		<tr>
-			<td>Name: </td>
-			<td>{{ test_group.name }}</td>
-		</tr>
-		<tr> <td>Description: </td>
-			<td>{{ test_group.description }}</td>
-		</tr>
-	</table>
-	<br><br>
-	<table class="table">
-		<tr>
-			<th>Test Cases </th>
-		</tr>
-		{% for tc in test_cases %}
-		{% if tc.1 == 'Pass' %}
-		<tr class='success'>
-		{% elif tc.1 == 'Fail' %}
-		<tr class='danger'>
-		{% else %}
-		<tr class='info'>
-		{% endif %}
-			<td>{{ tc.0 }}</td>
-			{% if tc.2 is not none %}
-			<td><span class="label label-info">Complete</span></td>
-			<td><a href="{% url 'view_test_result' tc.2 %}"><span class="label label-primary">{{ tc.1 }}</span></a></td>
-			{% else %}
-			<td><a href="{% url 'run_test_case_by_id_from_group' test_group.id tc.0.id%}"><span class="label label-default">Run</span></a></td>
-			<td></td>
-			{% endif %}
-		</tr>
-		{% endfor %}
-		</tr>
-		{% for tc in test_charters %}
-		<tr>
-			<th>Test Charters </th>
-		</tr>
-		<tr>
-			<td>{{ tc.0 }}</td>
-			{% if tc.2 is not none %}
-			<td><span class="label label-info">Complete</span></td>
-			<td><a href="{% url 'view_test_session' tc.2 %}"><span class="label label-info">{{ tc.1 }}</a></td>
-			{% else %}
-			<td><a href="{% url 'run_test_charter_by_id_from_group' test_group.id tc.0.id%}"><span class="label label-warning">Run</span></a></td>
-			{% endif %}
-		</tr>
-		{% endfor %}
-	</tr>
-</table>
+	<div class="panel panel-primary">
+		<div class="panel-heading">Test Group: {{ test_group.name }}</div>
+		<div class="panel-body">
+			<p>
+			{{ test_group.description }}
+			</p>
+			<br><br>
+			<table class="table">
+				<tr>
+					<th>Test Cases</th>
+					<th>Status</th>
+					<th>Result</th>
+				</tr>
+				{% for tc in test_cases %}
+				{% if tc.1 == 'Pass' %}
+				<tr class='success'>
+				{% elif tc.1 == 'Fail' %}
+				<tr class='danger'>
+				{% else %}
+				<tr class='info'>
+				{% endif %}
+					<td>{{ tc.0 }}</td>
+					{% if tc.2 is not none %}
+					<td><span class="label label-info">Complete</span></td>
+					<td><a href="{% url 'view_test_result' tc.2 %}"><span class="label label-primary">{{ tc.1 }}</span></a></td>
+					{% else %}
+					<td><a href="{% url 'run_test_case_by_id_from_group' test_group.id tc.0.id%}"><span class="label label-default">Run</span></a></td>
+					<td></td>
+					{% endif %}
+				</tr>
+				{% endfor %}
+				</tr>
+				<tr>
+					<th>Test Charters</th>
+					<th></th>
+					<th></th>
+				</tr>
+				{% for tc in test_charters %}
+				<tr>
+					<td>{{ tc.0 }}</td>
+					{% if tc.2 is not none %}
+					<td><span class="label label-info">Complete</span></td>
+					<td><a href="{% url 'view_test_session' tc.2 %}"><span class="label label-info">{{ tc.1 }}</a></td>
+					{% else %}
+					<td><a href="{% url 'run_test_charter_by_id_from_group' test_group.id tc.0.id%}"><span class="label label-warning">Run</span></a></td>
+					{% endif %}
+				</tr>
+				{% endfor %}
+				</tr>
+			</table>
+		</div>
+	</div>	
 	<input type=button class="btn btn-danger" value="Back" onClick="history.go(-1);">	
 	<input class="btn btn-success" type=button value="Edit" onClick="location.href='{% url 'update_test_group' test_group.id  %}'"/>
 </div>
