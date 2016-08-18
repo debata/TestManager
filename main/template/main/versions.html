@@ -14,7 +14,7 @@
 			<td><a href="{% url 'delete_version' version.id %}" onclick="return confirm('Do you wish to delete?');return false;">Delete</a>
 			<td><a href="{% url 'show_all_test_cases' version.id %}">Show Test Cases</a>
 			<td><a href="{% url 'show_all_test_charters' version.id %}">Show Test Charters</a>
-			<td><a href="{% url 'show_all_test_groups' version.id %}">Show Test Groups</a>
+			<td><a href="{% url 'show_all_test_groups_by_id' version.id %}">Show Test Groups</a>
 			</tr>
 			{% endfor %}
 			</table>

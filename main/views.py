@@ -241,9 +241,11 @@ def show_test_groups(request, version_id=None):
         context['all_test_groups'] = TestGroup.objects.filter(
                 version__id=version_id)
         context['version_id'] = version_id
+        return render(request, "main/test_groups.html",
+                  context)
     else:
         context['all_test_groups'] = TestGroup.objects.all()
-    return render(request, "main/test_groups.html",
+        return render(request, "main/all_test_groups.html",
                   context)
 
 
