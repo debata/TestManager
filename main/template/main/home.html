@@ -6,55 +6,60 @@
 	<h1> Welcome {{ username }} </h1>
 	<div class="panel panel-danger">
 		<div class="panel-heading">Assigned Defects</div>
-			<div class="panel-body">
-				{% if user_defects|length > 1 %}
-				<table class="table">
-					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Status</th>
-						<th>Priority</th>
-						<th>Reporter</th>
-					</tr>
-					{% for def in user_defects %}
-					<tr>
-						<td> {{ def.id }} </a></td>
-						<td><a href="{% url 'defect_by_id' def.id %}">{{ def.name }}</a></td>
-						<td> {{ def.status }} </td>
-						<td> {{ def.priority }} </td>
-						<td> {{ def.reporter }} </td>
-					</tr>
-					{% endfor %}
-				</table>
-				{% else %}
-				You have no assigned defects <span class="glyphicon glyphicon-thumbs-up"></span>
-				{% endif %}
-			</div>
+		<div class="panel-body">
+		{% if user_defects|length > 0 %}
+		<table class="table table-hover">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Status</th>
+				<th>Priority</th>
+				<th>Reporter</th>
+			</tr>
+			{% for def in user_defects %}
+			<tr>
+				<td> {{ def.id }} </a></td>
+				<td><a href="{% url 'defect_by_id' def.id %}">{{ def.name }}</a></td>
+				<td> {{ def.description }} </td>
+				<td> {{ def.status }} </td>
+				<td> {{ def.priority }} </td>
+				<td> {{ def.reporter }} </td>
+			</tr>
+			{% endfor %}
+		</table>
+		{% else %}
+		You have no assigned defects <span class="glyphicon glyphicon-thumbs-up"></span>
+		{% endif %}
 		</div>
+	</div>
 	<div class="panel panel-info">
 		<div class="panel-heading">Reported Defects</div>
-			<div class="panel-body">
-				{% if reported_defects|length > 1 %}
-				<table class="table">
-					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Status</th>
-						<th>Priority</th>
-						<th>Current Assignee</th>
-					</tr>
-					{% for def in reported_defects %}
-					<tr>
-						<td> {{ def.id }} </a></td>
-						<td><a href="{% url 'defect_by_id' def.id %}">{{ def.name }}</a></td>
-						<td> {{ def.status }} </td>
-						<td> {{ def.priority }} </td>
-						<td> {{ def.assigned }} </td>
-					</tr>
-					{% endfor %}
-				</table>
-				{% else %}
-				You have no reported defects <span class="glyphicon glyphicon-thumbs-up"></span>
-				{% endif %}
-</div>
+		<div class="panel-body">
+			{% if reported_defects|length > 0 %}
+			<table class="table table-hover">
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Status</th>
+					<th>Priority</th>
+					<th>Current Assignee</th>
+				</tr>
+				{% for def in reported_defects %}
+				<tr>
+					<td> {{ def.id }} </a></td>
+					<td><a href="{% url 'defect_by_id' def.id %}">{{ def.name }}</a></td>
+					<td> {{ def.description }} </td>
+					<td> {{ def.status }} </td>
+					<td> {{ def.priority }} </td>
+					<td> {{ def.assigned }} </td>
+				</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+			You have no reported defects <span class="glyphicon glyphicon-thumbs-up"></span>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}

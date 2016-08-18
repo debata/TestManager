@@ -34,7 +34,8 @@
 		<td>{{ test_case.author.username }}</td>
 	</tr>
 	</table>
-	<input class="btn btn-success btn-sm" type=button value="Edit" onClick="location.href='{% url 'update_test_case' test_case.id %}'"/>
+	<input type=button class="btn btn-danger" value="Back" onClick="history.go(-1);">	
+	<input class="btn btn-success" type=button value="Edit" onClick="location.href='{% url 'update_test_case' test_case.id %}'"/>
 
 </div>
 {% endblock %}

@@ -51,6 +51,7 @@
 		{% endfor %}
 	</tr>
 </table>
-<a href="{% url 'update_test_group' test_group.id  %}">Edit</a>
+	<input type=button class="btn btn-danger" value="Back" onClick="history.go(-1);">	
+	<input class="btn btn-success" type=button value="Edit" onClick="location.href='{% url 'update_test_group' test_group.id  %}'"/>
 </div>
 {% endblock %}

@@ -2,17 +2,21 @@
 
 {% block content %}
 <div class="container">
-	<table class="table">
-	{% for tc in all_test_charters %}
-	<tr>
-	<td><a href="{% url 'test_charter_by_id' tc.id %}"> {{ tc.name }} </a></td>
-	<td><a href="{% url 'update_test_charter' tc.id %}">Edit</a></td>
-	<td><a href="{% url 'delete_test_charter' tc.id %}" onclick="return confirm('Do you wish to delete this test charter?');return false;">Delete</a></td>
-	</tr>
-	{% endfor %}
-	</table>
+	<div class="panel panel-primary">
+		<div class="panel-heading">Test Charters</div>
+		<div class="panel-body">
+			<table class="table">
+				{% for tc in all_test_charters %}
+				<tr>
+					<td><a href="{% url 'test_charter_by_id' tc.id %}"> {{ tc.name }} </a></td>
+					<td><a href="{% url 'update_test_charter' tc.id %}">Edit</a></td>
+					<td><a href="{% url 'delete_test_charter' tc.id %}" onclick="return confirm('Do you wish to delete this test charter?');return false;">Delete</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
 	<br>
-	
 	<input class="btn btn-success btn-sm" type=button value="Create Test Charter" onClick="location.href='{% url 'new_test_charter' %}'">
 </div>
 {% endblock %}

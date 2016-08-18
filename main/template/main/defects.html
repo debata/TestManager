@@ -2,17 +2,22 @@
 
 {% block content %}
 <div class="container">
-	<table class="table">
-	{% for def in all_defects %}
-	<tr>
-	<td> {{ def.id }} </a></td>
-	<td><a href="{% url 'defect_by_id' def.id %}"> {{ def.name }} </a></td>
-	<td><a href="{% url 'update_defect' def.id %}">Edit</a></td>
-	<td><a href="{% url 'delete_defect' def.id %}" onclick="return confirm('Do you wish to delete this test case?');return false;">Delete</a></td>
-	</tr>
-	{% endfor %}
-	</table>
-	<br>
+	<div class="panel panel-primary">
+		<div class="panel-heading">Defects</div>
+		<div class="panel-body">
+			<table class="table">
+			{% for def in all_defects %}
+				<tr>
+					<td> {{ def.id }} </a></td>
+					<td><a href="{% url 'defect_by_id' def.id %}"> {{ def.name }} </a></td>
+					<td><a href="{% url 'update_defect' def.id %}">Edit</a></td>
+					<td><a href="{% url 'delete_defect' def.id %}" onclick="return confirm('Do you wish to delete this test case?');return false;">Delete</a></td>
+				</tr>
+			{% endfor %}
+			</table>
+			<br>
+		</div>
+	</div>
 	<input class="btn btn-success btn-sm" type=button value="Create Defect" onClick="location.href='{% url 'new_defect' %}'">
 </div>
 {% endblock %}

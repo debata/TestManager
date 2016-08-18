@@ -42,6 +42,7 @@
 	<td>{{ test_charter.author.username }}</td>
 </tr>
 </table>
-<input class="btn btn-success btn-sm" type=button value="Edit" onClick="location.href='{% url 'update_test_charter' test_charter.id %}'"/>
+	<input type=button class="btn btn-danger" value="Back" onClick="history.go(-1);">	
+	<input class="btn btn-success" type=button value="Edit" onClick="location.href='{% url 'update_test_charter' test_charter.id %}'"/>
 </div>
 {% endblock %}

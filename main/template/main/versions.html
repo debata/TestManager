@@ -2,19 +2,24 @@
 
 {% block content %}
 <div class='container'>
-	<table class="table">
-	{% for version in all_versions %}
-	<tr>
-	<td>{{ version.number }}</td>
-	<td>{{ version.name}}</td>
-	<td><a href="{% url 'update_version' version.id %}">Edit</a>
-	<td><a href="{% url 'delete_version' version.id %}" onclick="return confirm('Do you wish to delete?');return false;">Delete</a>
-	<td><a href="{% url 'show_all_test_cases' version.id %}">Show Test Cases</a>
-	<td><a href="{% url 'show_all_test_charters' version.id %}">Show Test Charters</a>
-	<td><a href="{% url 'show_all_test_groups' version.id %}">Show Test Groups</a>
-	</tr>
-	{% endfor %}
-	</table>
+	<div class="panel panel-primary">
+		<div class="panel-heading">Versions</div>
+		<div class="panel-body">
+			<table class="table">
+			{% for version in all_versions %}
+			<tr>
+			<td>{{ version.number }}</td>
+			<td>{{ version.name}}</td>
+			<td><a href="{% url 'update_version' version.id %}">Edit</a>
+			<td><a href="{% url 'delete_version' version.id %}" onclick="return confirm('Do you wish to delete?');return false;">Delete</a>
+			<td><a href="{% url 'show_all_test_cases' version.id %}">Show Test Cases</a>
+			<td><a href="{% url 'show_all_test_charters' version.id %}">Show Test Charters</a>
+			<td><a href="{% url 'show_all_test_groups' version.id %}">Show Test Groups</a>
+			</tr>
+			{% endfor %}
+			</table>
+		</div>
+	</div>
 	<input class="btn btn-success btn-sm" type=button value="Create Version" onClick="location.href='{% url 'new_version' %}'">
 </div>
 {% endblock %}
