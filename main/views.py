@@ -28,8 +28,9 @@ def register(request):
 def home(request):
     context = dict()
     context['username'] = request.user
-    context['user_defects'] = Defect.objects.filter(assigned=request.user)
-    context['reported_defects'] = Defect.objects.filter(reporter=request.user)
+    context['user_defects'] = Defect.objects.filter(assigned=request.user).exclude(status='Closed')
+    context['reported_defects'] = Defect.objects.filter(
+            reporter=request.user).exclude(status='Closed')
     return render(request, "main/home.html", context)
 
 
@@ -242,11 +243,11 @@ def show_test_groups(request, version_id=None):
                 version__id=version_id)
         context['version_id'] = version_id
         return render(request, "main/test_groups.html",
-                  context)
+                      context)
     else:
         context['all_test_groups'] = TestGroup.objects.all()
         return render(request, "main/all_test_groups.html",
-                  context)
+                      context)
 
 
 @login_required
@@ -313,7 +314,7 @@ def update_test_group(request, id):
             test_group = form.save(commit=False)
             test_group.save()
             form.save_m2m()
-            return show_test_groups(request, version_id=test_group.version.id)
+            return show_test_group(request, group_id=test_group.id)
     else:
         form = TestGroupForm(instance=test_group)
     context['form'] = form
