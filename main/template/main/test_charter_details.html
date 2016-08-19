@@ -2,20 +2,22 @@
 
 {% block content %}
 <div class="container">
-<table class="table">                                                                                  
+<table class="table">
+<tr>
+	<td>Name: </td>
+	<td>{{ test_charter.name }}</td>
+</tr>
 <tr>
 <td>Versions:</td>
-{% for version in test_charter.versions.all %}
-<td>{{ version.number }} - {{ version.name }} </td>
-{% endfor %}
+	<td>
+		{% for version in test_charter.versions.all %}
+		{{ version.number }} - {{ version.name }} <br>
+		{% endfor %}
+	</td>
 </tr>
 <tr>
 	<td>Priority:</td>
 	<td>{{ test_charter.priority }}</td>
-</tr>
-<tr>
-	<td>Name: </td>
-	<td>{{ test_charter.name }}</td>
 </tr>
 <tr>
 	<td>Prerequisites:</td>

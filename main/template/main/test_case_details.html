@@ -2,20 +2,22 @@
 
 {% block content %}
 <div class="container">
-	<table class="table">                                                                                  
+	<table class="table">
 	<tr>
+	<tr>
+		<td>Name: </td>
+		<td>{{ test_case.name }}</td>
+	</tr>
 	<td>Versions:</td>
-	{% for version in test_case.versions.all %}
-	<td>{{ version.number }} - {{ version.name }} </td>
-	{% endfor %}
+	<td>
+		{% for version in test_case.versions.all %}
+		{{ version.number }} - {{ version.name }}<br>
+		{% endfor %}
+	</td>
 	</tr>
 	<tr>
 		<td>Priority:</td>
 		<td>{{ test_case.priority }}</td>
-	</tr>
-	<tr>
-		<td>Name: </td>
-		<td>{{ test_case.name }}</td>
 	</tr>
 	<tr>
 		<td>Prerequisites:</td>
@@ -30,7 +32,7 @@
 		<td>{{ test_case.procedure }}</td>
 	</tr>
 	<tr>
-		<td>Author:</td>
+		<td>Last Author:</td>
 		<td>{{ test_case.author.username }}</td>
 	</tr>
 	</table>
