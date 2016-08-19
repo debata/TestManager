@@ -2,34 +2,39 @@
 
 {% block content %}
 <div class="container">
-	<table class="table">
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Version</th>
-			<th>Tests</th>
-			<th></th>
-			<th></th>
-		<tr>
-		{% for tg in all_test_groups %}
-		<tr>
-			<td> {{ tg.id }} </a></td>
-			<td><a href="{% url 'test_group_by_id' tg.id %}"> {{ tg.name }} </a></td>
-			<td>{{ tg.version }}</td>
-			<td>
-				{% for tc in tg.test_cases.all %}
-				{{ tc }} <br>
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">All Test Groups</div>
+			<table class="table">
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Version</th>
+					<th>Tests</th>
+					<th></th>
+					<th></th>
+				<tr>
+				{% for tg in all_test_groups %}
+				<tr>
+					<td> {{ tg.id }} </a></td>
+					<td><a href="{% url 'test_group_by_id' tg.id %}"> {{ tg.name }} </a></td>
+					<td>{{ tg.version }}</td>
+					<td>
+						{% for tc in tg.test_cases.all %}
+						{{ tc }} <br>
+						{% endfor %}
+						<br>
+						{% for tc in tg.test_charters.all %}
+						{{ tc }} <br>
+						{% endfor %}
+					</td>
+					<td><a href="{% url 'update_test_group' tg.id %}">Edit</a></td>
+					<td><a href="{% url 'delete_test_group' tg.id %}" onclick="return confirm('Do you wish to delete this test group?');return false;">Delete</a></td>
+				</tr>
 				{% endfor %}
-				<br>
-				{% for tc in tg.test_charters.all %}
-				{{ tc }} <br>
-				{% endfor %}
-			</td>
-			<td><a href="{% url 'update_test_group' tg.id %}">Edit</a></td>
-			<td><a href="{% url 'delete_test_group' tg.id %}" onclick="return confirm('Do you wish to delete this test group?');return false;">Delete</a></td>
-		</tr>
-		{% endfor %}
-	</table>
+			</table>
+		</div>
+	</div>
 	<br>
 </div>
 {% endblock %}

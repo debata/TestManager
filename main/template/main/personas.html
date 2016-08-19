@@ -3,22 +3,21 @@
 {% block content %}
 <div class="container">
 	<br>
-	<table class="table">
-	{% for persona in all_personas %}
-	<tr>
-		<td>Persona:</td>
-		<td>{{ persona.name}}<td>
-	</tr>
-	<tr>
-		<td>Description:</td>
-		<td>{{ persona.description }}</td>
-	</tr>
-	<tr>
-	<td><a href="{% url 'update_persona' persona.id %}">Edit</a>
-	<td><a href="{% url 'delete_persona' persona.id %}" onclick="return confirm('Do you wish to delete this persona?');return false;">Delete</a>
-	</tr>
-	{% endfor %}
-	</table>
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Personas</div>
+				<table class="table">
+					{% for persona in all_personas %}
+					<tr>
+						<td>{{ persona.name }}</td>
+						<td>{{ persona.description }}</td>
+						<td><a href="{% url 'update_persona' persona.id %}">Edit</a></td>
+						<td><a href="{% url 'delete_persona' persona.id %}" onclick="return confirm('Do you wish to delete this persona?');return false;">Delete</a></td>
+					</tr>
+					{% endfor %}
+				</table>
+		</div>
+	<div>
 	<br>
 	<input class="btn btn-success btn-sm" type=button value="Create Persona" onClick="location.href='{% url 'new_persona' %}'">
 </div>
