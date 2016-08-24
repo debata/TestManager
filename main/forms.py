@@ -1,8 +1,10 @@
 from django import forms
+from django.forms import Textarea
 from django.contrib.auth.forms import AuthenticationForm
 from main.models import (Version, TestCase, TestCharter,
                          TestGroup, Persona, Defect,
-                         TestResult, TestSession)
+                         TestResult, TestSession, Comment)
+from django.utils.translation import ugettext_lazy as _
 
 
 class LoginForm(AuthenticationForm):
@@ -69,3 +71,15 @@ class TestSessionForm(forms.ModelForm):
     class Meta:
         model = TestSession
         fields = ('areas_tested', 'notes')
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('comment_body',)
+        labels = {
+            'comment_body': _('Comment'),
+        }
+        widgets = {
+            'comment_body': Textarea(attrs={'cols': 40, 'rows': 6}),
+        }

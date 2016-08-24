@@ -102,3 +102,13 @@ class Defect(models.Model):
             User, related_name='assigned_user', blank=True, null=True)
     affected_test_cases = models.ManyToManyField(
             TestCase, blank=True, null=True)
+
+
+class Comment(models.Model):
+    modified_date = models.DateTimeField(editable=False)
+    commenter = models.ForeignKey(User)
+    comment_body = models.TextField(max_length=None)
+    defect = models.ManyToManyField(Defect, blank=True, null=True)
+    test_result = models.ManyToManyField(TestResult, blank=True, null=True)
+    test_session = models.ManyToManyField(TestSession, blank=True, null=True)
+

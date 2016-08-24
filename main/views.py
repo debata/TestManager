@@ -5,11 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from main.models import (Version, TestCase, TestCharter,
                          TestGroup, Persona, Defect,
-                         TestResult, TestSession)
+                         TestResult, TestSession, Comment)
 from main.forms import (VersionForm, TestCaseForm,
                         TestCharterForm, TestGroupForm,
                         PersonaForm, DefectForm,
-                        TestResultForm, TestSessionForm)
+                        TestResultForm, TestSessionForm, CommentForm)
 
 
 # Create your views here.
@@ -28,7 +28,8 @@ def register(request):
 def home(request):
     context = dict()
     context['username'] = request.user
-    context['user_defects'] = Defect.objects.filter(assigned=request.user).exclude(status='Closed')
+    context['user_defects'] = Defect.objects.filter(
+            assigned=request.user).exclude(status='Closed')
     context['reported_defects'] = Defect.objects.filter(
             reporter=request.user).exclude(status='Closed')
     return render(request, "main/home.html", context)
@@ -157,7 +158,15 @@ def run_test_charter(request, test_group_id, test_charter_id):
 def view_test_result(request, result_id=None):
     context = dict()
     if result_id:
-        context['result'] = TestResult.objects.get(id=result_id)
+        result = TestResult.objects.get(id=result_id)
+    form = CommentForm()
+    try:
+        comments = Comment.objects.filter(test_result=result)
+    except Comment.DoesNotExist:
+        comments = None
+    context['result'] = result
+    context['comments'] = comments
+    context['form'] = form
     return render(request, "main/test_result.html", context)
 
 
@@ -165,7 +174,15 @@ def view_test_result(request, result_id=None):
 def view_test_session(request, test_session_id=None):
     context = dict()
     if test_session_id:
-        context['test_session'] = TestSession.objects.get(id=test_session_id)
+        session = TestSession.objects.get(id=test_session_id)
+    form = CommentForm()
+    try:
+        comments = Comment.objects.filter(test_session=session)
+    except Comment.DoesNotExist:
+        comments = None
+    context['test_session'] = session
+    context['comments'] = comments
+    context['form'] = form
     return render(request, "main/test_session.html", context)
 
 
@@ -442,7 +459,15 @@ def show_defects(request, version_id=None):
 @login_required
 def show_defect(request, defect_id):
     context = dict()
-    context['defect'] = Defect.objects.get(id=defect_id)
+    defect = Defect.objects.get(id=defect_id)
+    context['defect'] = defect
+    form = CommentForm()
+    try:
+        comments = Comment.objects.filter(defect=defect)
+    except Comment.DoesNotExist:
+        comments = None
+    context['comments'] = comments
+    context['form'] = form
     return render(request, "main/defect_details.html",
                   context)
 
@@ -491,3 +516,51 @@ def delete_defect(request, id):
     if defect:
         defect.delete()
     return redirect(show_defects)
+
+
+@login_required
+def add_comment_defect(request, defect_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            defect = Defect.objects.get(id=defect_id)
+            comment_text = form.cleaned_data['comment_body']
+            comment = Comment.objects.create(
+                comment_body=comment_text,
+                commenter=request.user,
+                modified_date=datetime.datetime.now())
+            comment.defect.add(defect)
+            comment.save()
+    return redirect('defect_by_id', defect_id)
+
+
+@login_required
+def add_comment_test_result(request, test_result_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            test_result = TestResult.objects.get(id=test_result_id)
+            comment_text = form.cleaned_data['comment_body']
+            comment = Comment.objects.create(
+                comment_body=comment_text,
+                commenter=request.user,
+                modified_date=datetime.datetime.now())
+            comment.test_result.add(test_result)
+            comment.save()
+    return redirect('view_test_result', test_result_id)
+
+
+@login_required
+def add_comment_test_session(request, test_session_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            test_session = TestSession.objects.get(id=test_session_id)
+            comment_text = form.cleaned_data['comment_body']
+            comment = Comment.objects.create(
+                comment_body=comment_text,
+                commenter=request.user,
+                modified_date=datetime.datetime.now())
+            comment.test_session.add(test_session)
+            comment.save()
+    return redirect('view_test_session', test_session_id)

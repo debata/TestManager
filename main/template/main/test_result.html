@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load bootstrap3 %}
 
 {% block content %}
 <div class="container">
@@ -22,5 +23,18 @@
 	</tr>
 	</table>
 	<input type=button class="btn btn-primary" value="Back" onClick="history.go(-1);">	
+	<input class="btn btn-primary" type=button value="Comment" onClick="document.getElementById('comment-form-id').style['display'] = 'block'">
+	{% include 'main/comment_snippet.html' %}
+	<br>
+	<div id="comment-form-id" style="display:none">
+		<form method="POST" action="{% url 'add_comment_test_result' result.id %}">
+			{% csrf_token %}
+			{% bootstrap_form form %}
+			{% buttons %}
+			<button class="btn btn-success" type="submit" >Post</button>
+			{% endbuttons %}
+		</form>
+	</div>
 </div>
+
 {% endblock %}
