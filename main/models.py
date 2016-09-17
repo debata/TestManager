@@ -63,8 +63,8 @@ class TestGroup(models.Model):
     version = models.ForeignKey(Version)
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=None)
-    test_cases = models.ManyToManyField(TestCase, blank=True, null=True)
-    test_charters = models.ManyToManyField(TestCharter, blank=True, null=True)
+    test_cases = models.ManyToManyField(TestCase, blank=True)
+    test_charters = models.ManyToManyField(TestCharter, blank=True)
 
 
 class TestResult(models.Model):
@@ -92,23 +92,22 @@ class Defect(models.Model):
     priority = models.CharField(max_length=15, choices=priority_fields)
     affected_versions = models.ManyToManyField(
             Version, related_name='affected_versions',
-            blank=True, null=True)
+            blank=True)
     fixed_versions = models.ManyToManyField(
-            Version, related_name='fixed_version', blank=True, null=True)
+            Version, related_name='fixed_version', blank=True)
     procedure = models.TextField(max_length=None)
     reporter = models.ForeignKey(User,
                                  related_name='reporter_user')
     assigned = models.ForeignKey(
             User, related_name='assigned_user', blank=True, null=True)
     affected_test_cases = models.ManyToManyField(
-            TestCase, blank=True, null=True)
+            TestCase, blank=True)
 
 
 class Comment(models.Model):
     modified_date = models.DateTimeField(editable=False)
     commenter = models.ForeignKey(User)
     comment_body = models.TextField(max_length=None)
-    defect = models.ManyToManyField(Defect, blank=True, null=True)
-    test_result = models.ManyToManyField(TestResult, blank=True, null=True)
-    test_session = models.ManyToManyField(TestSession, blank=True, null=True)
-
+    defect = models.ManyToManyField(Defect, blank=True)
+    test_result = models.ManyToManyField(TestResult, blank=True)
+    test_session = models.ManyToManyField(TestSession, blank=True)
