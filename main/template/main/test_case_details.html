@@ -32,6 +32,13 @@
 		<td>{{ test_case.procedure }}</td>
 	</tr>
 	<tr>
+		<td>Recent Results</td>
+		<td>
+			{% for result in test_results %}
+			{{ result.result }} on {{ result.execution_date }} <br>
+			{% endfor %}
+		</td>
+	<tr>
 		<td>Last Author:</td>
 		<td>{{ test_case.author.username }}</td>
 	</tr>

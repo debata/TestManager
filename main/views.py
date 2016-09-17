@@ -50,6 +50,7 @@ def show_test_cases(request, version_id=None):
 def show_test_case(request, test_id):
     context = dict()
     context['test_case'] = TestCase.objects.get(id=test_id)
+    context['test_results'] = TestResult.objects.filter(test_case__id=test_id)
     return render(request, "main/test_case_details.html", context)
 
 

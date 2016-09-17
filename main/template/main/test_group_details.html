@@ -23,7 +23,7 @@
 				{% else %}
 				<tr class='info'>
 				{% endif %}
-					<td>{{ tc.0 }}</td>
+					<td><a href="{% url 'test_case_by_id' tc.0.id %}"> {{ tc.0 }} </a></td>
 					{% if tc.2 is not none %}
 					<td><span class="label label-info">Complete</span></td>
 					<td><a href="{% url 'view_test_result' tc.2 %}"><span class="label label-primary">{{ tc.1 }}</span></a></td>
@@ -41,7 +41,7 @@
 				</tr>
 				{% for tc in test_charters %}
 				<tr>
-					<td>{{ tc.0 }}</td>
+					<td><a href="{% url 'test_charter_by_id' tc.0.id %}"> {{ tc.0 }} </a></td>
 					{% if tc.2 is not none %}
 					<td><span class="label label-info">Complete</span></td>
 					<td><a href="{% url 'view_test_session' tc.2 %}"><span class="label label-info">{{ tc.1 }}</a></td>

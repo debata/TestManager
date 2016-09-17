@@ -50,7 +50,7 @@
 			<td>Affected Test Cases:</td>
 			<td>
 				{% for test_case in defect.affected_test_cases.all %}
-				{{ test_case.id }} - {{ test_case.name }} <br>
+				<a href="{% url 'test_case_by_id' test_case.id %}">{{ test_case }}</a>
 				{% endfor %}
 			</td>
 			</tr>
