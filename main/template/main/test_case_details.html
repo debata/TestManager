@@ -35,7 +35,8 @@
 		<td>Recent Results</td>
 		<td>
 			{% for result in test_results %}
-			{{ result.result }} on {{ result.execution_date }} <br>
+			<a href="{% url 'view_test_result' result.id %}">
+			{{ result.result }} on {{ result.execution_date }} </a><br>
 			{% endfor %}
 		</td>
 	<tr>
