@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^version/new/$', new_version, name='new_version'),
     url(r'^version/update/([0-9]+)/$', update_version, name='update_version'),
     url(r'^version/delete/([0-9]+)/$', delete_version, name='delete_version'),
+    url(r'^version/([0-9]+)/results/$', view_version_results, name='version_results'),
     url(r'^persona/$', show_personas, name='show_all_personas'),
     url(r'^persona/new/$', new_persona, name='new_persona'),
     url(r'^persona/update/([0-9]+)/$', update_persona, name='update_persona'),

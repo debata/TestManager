@@ -45,6 +45,17 @@ def show_test_cases(request, version_id=None):
         context['all_test_cases'] = TestCase.objects.all()
     return render(request, "main/test_cases.html", context)
 
+@login_required
+def view_version_results(request, version_id=None):
+    context = dict()
+    if version_id:
+        all_results= dict()
+        all_test_cases = TestCase.objects.filter(
+                versions__id=version_id)
+        for test_case in all_test_cases:
+            all_results[test_case] = TestResult.objects.filter(test_case__id=test_case.id)
+    context['all_results'] =  all_results
+    return render(request, "main/version_results.html", context)
 
 @login_required
 def show_test_case(request, test_id):

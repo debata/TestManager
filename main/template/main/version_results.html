@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class='container'>
+	<div class="panel panel-primary">
+		<div class="panel-heading">Version Status</div>
+		<div class="panel-body">
+			<table class="table">
+			{% for key,values in all_results.items %}
+			<tr>
+				<td>{{ key }}</td>
+				<td>{% for value in values %}
+					{{ value.result }} on {{ value.execution_date }}<br>
+					{% endfor %}
+				</td>
+			</tr>
+			{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
