@@ -46,6 +46,10 @@ class TestCharterForm(forms.ModelForm):
 
 
 class TestGroupForm(forms.ModelForm):
+    def __init__(self,version,*args,**kwargs):
+        super (TestGroupForm,self ).__init__(*args,**kwargs)
+        self.fields['test_cases'].queryset = TestCase.objects.filter(versions=version)
+        self.fields['test_charters'].queryset = TestCharter.objects.filter(versions=version)
     class Meta:
         model = TestGroup
         fields = ('name', 'description',
