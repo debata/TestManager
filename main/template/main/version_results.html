@@ -5,17 +5,36 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">Version Status</div>
 		<div class="panel-body">
+			{% if all_test_results %}
 			<table class="table">
-			{% for key,values in all_results.items %}
-			<tr>
-				<td>{{ key }}</td>
-				<td>{% for value in values %}
-					{{ value.result }} on {{ value.execution_date }}<br>
-					{% endfor %}
-				</td>
-			</tr>
-			{% endfor %}
+				{% for key,values in all_test_results.items %}
+				<tr>
+					<td>{{ key }}</td>
+					<td>{% for value in values %}
+						{{ value.result }} on {{ value.execution_date }}<br>
+						{% endfor %}
+					</td>
+				</tr>
+				{% endfor %}
 			</table>
+			{% else %}
+			There are no test cases associated with this version
+			{% endif %}
+			{% if all_test_sessions %}
+			<table class="table">
+				{% for key,values in all_test_sessions.items %}
+				<tr>
+					<td>{{ key }}</td>
+					<td>{% for value in values %}
+						{{ value.execution_date }}<br>
+						{% endfor %}
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+			There are no test charters associated with this version
+			{% endif %}
 		</div>
 	</div>
 </div>

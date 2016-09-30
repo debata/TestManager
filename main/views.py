@@ -49,12 +49,18 @@ def show_test_cases(request, version_id=None):
 def view_version_results(request, version_id=None):
     context = dict()
     if version_id:
-        all_results= dict()
-        all_test_cases = TestCase.objects.filter(
-                versions__id=version_id)
-        for test_case in all_test_cases:
-            all_results[test_case] = TestResult.objects.filter(test_case__id=test_case.id)
-    context['all_results'] =  all_results
+        all_results = dict()
+        all_sessions = dict()
+        all_groups = TestGroup.objects.filter(
+                version__id=version_id)
+        for group in all_groups:
+            for test_case in group.test_cases.all():
+                all_results[group.name +": "+ str(test_case)] = TestResult.objects.filter(test_case__id=test_case.id, test_group__id=group.id)
+            for test_charter in group.test_charters.all():
+                all_sessions[group.name +": "+str(test_charter)] = TestSession.objects.filter(test_charter__id=test_charter.id, test_group__id=group.id)
+
+    context['all_test_results'] =  all_results
+    context['all_test_sessions'] =  all_sessions
     return render(request, "main/version_results.html", context)
 
 @login_required
@@ -319,7 +325,7 @@ def new_test_group(request, version_id):
     context = dict()
     context['entity_label'] = 'New Test Group'
     if request.method == 'POST':
-        form = TestGroupForm(request.POST)
+        form = TestGroupForm(version_id, request.POST)
         if form.is_valid():
             test_group = form.save(commit=False)
             test_group.version = Version.objects.get(id=version_id)
@@ -327,7 +333,7 @@ def new_test_group(request, version_id):
             form.save_m2m()
             return show_test_groups(request, version_id=test_group.version.id)
     else:
-        form = TestGroupForm()
+        form = TestGroupForm(version_id)
     context['form'] = form
     return render(request, 'main/entity_form.html', context)
 
